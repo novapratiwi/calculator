@@ -4,25 +4,23 @@ const operators = document.querySelectorAll(".operator")
 const equalSign = document.querySelector('.equal-sign')
 const clearBtn = document.querySelector('.all-clear')
 const decimal = document.querySelector('.decimal')
-const percentage = document.querySelector('.precentage')
-const sqr = document.querySelector('.sqr')
+const percentage = document.querySelector('.percentage')
+const pangkat = document.querySelector('.pangkat')
 const dlt = document.querySelector('.delete')
+
 
 let prevNumber = ''
 let calculationOperator = ''
 let currentNumber = '0'
 let cekResult = false
-let cekPercentage = false
-cekDlt = false
+let cekDlt = false
 let count = 0
-let countOperator = 0
 let calculationResult = ''
-
 
 
 // menampilkan update an input dan hasil di calculator screen
 const updateScreen = (number) => {
-    if (calculatorScreen.value === '0' || cekResult === true || count >= 2 || cekPercentage === true || cekDlt === true){
+    if (calculatorScreen.value === '0' || cekResult === true || count >= 2 || cekDlt === true ){
         calculatorScreen.value = number
     } else{
         calculatorScreen.value += number
@@ -58,16 +56,44 @@ const inputOperator = (operator) =>{
     calculationOperator = operator
     currentNumber = ''
     count = 0
-    countOperator += 1
 }
 
 
 // ketika operator diklik akan menampilkan/mengupdate operator di calculator screen
 operators.forEach((operator) =>{
     operator.addEventListener("click", (event) => {
+        cekOperator = true
         inputOperator(event.target.value)
         updateScreen(calculationOperator)
     })
+})
+
+
+
+const Inputpangkat = (pangkat) => {
+    // prevNumber = currentNumber
+    calculationOperator = pangkat
+    currentNumber = ''
+    count = 0
+}
+
+pangkat.addEventListener('click', (event) => {
+    Inputpangkat(event.target.value)
+    updateScreen(calculationOperator)
+})
+
+
+
+// function untuk input simbol persen
+const inputPercentage  = (percentage) => {
+    calculationOperator = percentage
+}
+
+
+
+//mengatur saat tombol persen diklik
+percentage.addEventListener('click', (event) => {
+    inputPercentage(event.target.value)
 })
 
 
@@ -78,8 +104,26 @@ const calculate = () =>{
     if (calculatorScreen.value.includes('x')) {
         strOnScreen = strOnScreen.replace(/x/g, "*")
     }
-    calculationResult = eval(strOnScreen)
-    currentNumber = calculationResult
+
+    if (strOnScreen.includes('^')){
+        var lengthOperation = strOnScreen.length
+        const currentNumber = []
+        for (var i = 0; i <= lengthOperation; i++){
+            if (strOnScreen[i] === "^"){
+                a = strOnScreen[i].replace("^", "**")
+                currentNumber.push(a)
+            } else{
+                currentNumber.push(strOnScreen[i])
+            }
+        }
+        strOnScreen = String(currentNumber).replace(/,/g, '')
+    }
+
+    if (calculatorScreen.value.includes('%')) {
+        strOnScreen = strOnScreen.replace(/%/g, "/100")
+    }
+    
+    currentNumber = String(eval(strOnScreen))
     calculationOperator = ''
 }
 
@@ -90,9 +134,7 @@ equalSign.addEventListener('click', () => {
     cekResult = true
     calculate()
     updateScreen(currentNumber)
-    cekPercentage = false
-    countOperator = 0
-    cekSqrt = false
+    cekSqrt= false
 })
 
 
@@ -103,7 +145,6 @@ const clearAll = () =>{
     calculationOperator = ''
     currentNumber = '0'
     cekResult = true
-    countOperator = 0
     cekSqrt = false
 }
 
@@ -142,41 +183,3 @@ dlt.addEventListener('click', (event) =>{
         clearAll()
     }
 })
-
-
-
-
-// KODINGAN DIBAWAH MASIH DALAM PERBAIKAN KARENA MASIH PUTAR OTAK MEMIKIRKAN LOGIKA, EAAAAA HAHAH. 
-// NGERI SEKALI BISA PUTAR OTAK NI, SILUMAN KAH APA NI HAHAHAH
-
-
-// const InputSqr = (number) => {
-//     currentNumber = currentNumber*currentNumber
-// }
-
-// sqr.addEventListener('click', (event) => {
-//     cekSqrt = true
-//     InputSqr(event.target.value)
-//     updateScreen(currentNumber+'**(2)')
-// })
-
-
-// const inputPercentage  = (percentage) => {
-//     calculationOperator = percentage
-//     // currentNumber = parseFloat(currentNumber)/100
-// }
-
-
-// percentage.addEventListener('click', (event) => {
-//     cekPercentage = true
-//     inputPercentage(event.target.value)
-//     // updateScreen(currentNumber + calculationOperator)
-//     // currentNumber = parseFloat(currentNumber)/100
-// })
-
-
-// const isTherePrecentage = () =>{
-//     if (calculatorScreen.value.includes("%")){
-//         console.log('ada persen')
-//     }
-// }

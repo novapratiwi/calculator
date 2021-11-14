@@ -49,7 +49,7 @@ html, body, .container{
     margin-left: 0px;
 }
 
-.number, .operator, .decimal, .sqr, .delete, .all-clear, .equal-sign, .precentage, .divide{
+.number, .operator, .decimal, .pangkat, .delete, .all-clear, .equal-sign, .percentage, .divide{
     width: 105px;
     height: 105px;
     float: left;
@@ -61,7 +61,7 @@ html, body, .container{
     border: 1px solid black;
 }
 
-.delete, .sqr{
+.delete, .pangkat{
     font-size: 20px;
 }
 
@@ -93,13 +93,13 @@ html, body, .container{
         /* border: 2px solid white; */
     }
 
-    .number, .operator, .decimal, .sqr, .delete, .all-clear, .equal-sign, .precentage, .divide{
+    .number, .operator, .decimal, .pangkat, .delete, .all-clear, .equal-sign, .percentage, .divide{
         width: 90px;
         height: 90px;
         font-size: 25px;
     }
 
-    .delete, .sqr{
+    .delete, .pangkat{
         font-size: 20px;
     }
 } 
@@ -122,13 +122,13 @@ html, body, .container{
         /* border: 2px solid white; */
     }
 
-    .number, .operator, .decimal, .sqr, .delete, .all-clear, .equal-sign, .precentage, .divide{
+    .number, .operator, .decimal, .pangkat, .delete, .all-clear, .equal-sign, .percentage, .divide{
         width: 50px;
         height: 48px;
         font-size: 15px;
     }
 
-    .delete, .sqr{
+    .delete, .pangkat{
         font-size: 10px;
     }
 }
