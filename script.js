@@ -13,6 +13,7 @@ let calculationOperator = ''
 let currentNumber = '0'
 let cekResult = false
 let cekPercentage = false
+cekDlt = false
 let count = 0
 let countOperator = 0
 let calculationResult = ''
@@ -21,12 +22,13 @@ let calculationResult = ''
 
 // menampilkan update an input dan hasil di calculator screen
 const updateScreen = (number) => {
-    if (calculatorScreen.value === '0' || cekResult === true || count >= 2 || cekPercentage === true){
+    if (calculatorScreen.value === '0' || cekResult === true || count >= 2 || cekPercentage === true || cekDlt === true){
         calculatorScreen.value = number
     } else{
         calculatorScreen.value += number
     }
     cekResult = false
+    cekDlt = false
 }
 
 
@@ -128,6 +130,17 @@ inputDecimal = (dot) => {
 decimal.addEventListener('click', (event) => {
     inputDecimal(event.target.value)
     updateScreen(currentNumber)
+})
+
+
+
+//menghapus operasi kalkulasi pada calculator-screen satu-satu dari belakang
+dlt.addEventListener('click', (event) =>{
+    cekDlt = true
+    updateScreen(calculatorScreen.value.slice(0,-1))
+    if (calculatorScreen.value.length === 0){
+        clearAll()
+    }
 })
 
 
