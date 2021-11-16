@@ -107,7 +107,7 @@ html, body, .container{
 @media (max-width: 670px){
     .calculator{
         width: 200px;
-        height: 310px;
+        height: 320px;
     }
 
     .calculator-screen{
@@ -126,6 +126,7 @@ html, body, .container{
         width: 50px;
         height: 48px;
         font-size: 15px;
+        border: 0.3px solid black;
     }
 
     .delete, .pangkat{
