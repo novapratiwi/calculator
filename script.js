@@ -10,34 +10,31 @@ const dlt = document.querySelector('.delete')
 
 
 let prevNumber = ''
+let DoublePrevNumber = ''
 let calculationOperator = ''
 let currentNumber = '0'
 let cekResult = false
 let cekDlt = false
-let count = 0
+let countOperator = 0
 let calculationResult = ''
 
 
 // menampilkan update an input dan hasil di calculator screen
 const updateScreen = (number) => {
-    if (calculatorScreen.value === '0' || cekResult === true || count >= 2 || cekDlt === true ){
+    if (calculatorScreen.value === '0' || cekResult === true || cekDlt === true ){
         calculatorScreen.value = number
     } else{
-        calculatorScreen.value += number
+        calculatorScreen.value = calculatorScreen.value.concat(number)
     }
     cekResult = false
     cekDlt = false
+
 }
 
 
 //fungsi untuk menginput number
 const inputNumber = (number) =>{
-    if (currentNumber === '0') {
-        currentNumber = number
-    } else{
-        currentNumber += number
-    }
-    count += 1
+    currentNumber = number
 }
 
 
@@ -52,17 +49,19 @@ numbers.forEach((number) => {
 
 // function untuk input operator
 const inputOperator = (operator) =>{
+    countOperator += 1
+    if (countOperator >= 2){
+        DoublePrevNumber = prevNumber
+    }
     prevNumber = currentNumber
     calculationOperator = operator
     currentNumber = ''
-    count = 0
 }
 
 
 // ketika operator diklik akan menampilkan/mengupdate operator di calculator screen
 operators.forEach((operator) =>{
     operator.addEventListener("click", (event) => {
-        cekOperator = true
         inputOperator(event.target.value)
         updateScreen(calculationOperator)
     })
@@ -71,10 +70,8 @@ operators.forEach((operator) =>{
 
 
 const Inputpangkat = (pangkat) => {
-    // prevNumber = currentNumber
     calculationOperator = pangkat
     currentNumber = ''
-    count = 0
 }
 
 pangkat.addEventListener('click', (event) => {
@@ -146,6 +143,7 @@ const clearAll = () =>{
     currentNumber = '0'
     cekResult = true
     cekSqrt = false
+    countOperator = 0
 }
 
 
@@ -162,7 +160,7 @@ inputDecimal = (dot) => {
     if (currentNumber.includes('.')) {
         return
     }
-    currentNumber += dot
+    currentNumber = dot
 }
 
 
@@ -178,6 +176,8 @@ decimal.addEventListener('click', (event) => {
 //menghapus operasi kalkulasi pada calculator-screen satu-satu dari belakang
 dlt.addEventListener('click', (event) =>{
     cekDlt = true
+    currentNumber = ''
+    prevNumber = DoublePrevNumber
     updateScreen(calculatorScreen.value.slice(0,-1))
     if (calculatorScreen.value.length === 0){
         clearAll()
